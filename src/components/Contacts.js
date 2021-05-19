@@ -4,9 +4,14 @@ import ContactsList from "./contactsList/ContactsList";
 import Section from "./section/Section";
 import { connect } from "react-redux";
 import ContactsFilter from "./filter/ContactsFilter";
-import { addContact, deleteContact, filterContacts, getAllContacts } from "../redux/contacts/contactsAction";
+import { filterContacts } from "../redux/contacts/contactsAction";
 import { addContactOperation, deleteContactsOperation, getAllContactsOperation } from "../redux/contacts/contactsOperation";
-import { errorContactSelector, filterContactSelector, getContactSelector } from "../redux/contacts/contactsSelectors";
+import {
+  errorContactSelector,
+  filterContactSelector,
+  getContactSelector,
+  getFilteringContacts
+} from "../redux/contacts/contactsSelectors";
 
 class Contacts extends Component {
   state = {
@@ -77,11 +82,7 @@ class Contacts extends Component {
         </Section>
 
         <Section title="Contacts">
-          <ContactsList
-            contacts={this.props.contacts}
-            onDeleteContact={this.onDeleteContact}
-            contacts={this.getFilteredContacts()}
-          />
+          <ContactsList contacts={this.props.contacts} onDeleteContact={this.onDeleteContact} />
         </Section>
       </>
     );
@@ -92,7 +93,8 @@ const mapStateToProps = state => {
   return {
     contacts: getContactSelector(state),
     filter: filterContactSelector(state),
-    error: errorContactSelector(state)
+    error: errorContactSelector(state),
+    filterContacts: getFilteringContacts(state)
   };
 };
 

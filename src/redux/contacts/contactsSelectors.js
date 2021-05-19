@@ -8,9 +8,7 @@ const errorContactSelector = state => state.error;
 const getFilteringContacts = createSelector(
   [getContactSelector, filterContactSelector],
   (contacts, filter) => {
-    return contacts.filter(
-      contact => contact.name.toLowerCase().includes(filter.toLowerCase()) || contact.number.includes(filter)
-    );
+    return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
   }
 );
 export { getContactSelector, filterContactSelector, loaderContactSelector, errorContactSelector, getFilteringContacts };
